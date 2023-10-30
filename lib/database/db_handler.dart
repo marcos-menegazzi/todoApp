@@ -44,7 +44,7 @@ class DBHelper {
 
   Future<List<TodoModel>> getAll() async {
     await db;
-    final List<Map<String, Object?>> queryResult = await _db!.rawQuery('SELECT * FROM todo');
+    final List<Map<String, Object?>> queryResult = await _db!.query('todo');
     return queryResult.map((e) => TodoModel.fromMap(e)).toList();
   }
 
