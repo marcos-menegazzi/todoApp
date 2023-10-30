@@ -43,9 +43,9 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
     final titleController = TextEditingController(text: widget.title);
     final descriptionController = TextEditingController(text: widget.description);
 
-    String appTitle = "Create new Task";
+    String appTitle = "Criar nova tarefa";
     if(widget.update == true) {
-      appTitle = "Update task";
+      appTitle = "Atualizar tarefa";
     }
 
     return Scaffold(
@@ -91,7 +91,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 100),
+        padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           child: Column(children: [
             Form(
@@ -104,7 +104,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                     controller: titleController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Note title",
+                      labelText: "Titulo"
                     ),
                     validator: (value) {
                       if(value!.isEmpty) {
@@ -124,7 +124,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                     controller: descriptionController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Note Description",
+                      labelText: "Descrição"
                     ),
                     validator: (value) {
                       if(value!.isEmpty) {
