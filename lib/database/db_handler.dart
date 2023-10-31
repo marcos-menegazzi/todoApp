@@ -1,3 +1,4 @@
+import 'package:myapp/models/user_model.dart';
 import 'package:myapp/models/todo_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -33,6 +34,15 @@ class DBHelper {
               "description TEXT NOT NULL"
             ")"
     );
+
+    await db.execute("CREATE TABLE "
+        "user("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "email TEXT NOT NULL,"
+        "auth_token TEXT NOT NULL,"
+        "name TEXT NOT NULL"
+        ")"
+    );
   }
 
   Future<TodoModel> insert(TodoModel todoModel) async {
@@ -56,5 +66,27 @@ class DBHelper {
   Future<int> delete(int id) async {
     var dbClient = await db;
     return await dbClient!.delete('todo', where: 'id = ?', whereArgs: [ id ]);
+  }
+  
+  Future<UserModel> getUser() async {
+    await db;
+
+    final List<Map<String, Object?>> queryResult = await _db!.query('user');
+    final List<UserModel> userList = queryResult.map((e) => UserModel.fromMap(e)).toList();
+
+    print(queryResult);
+
+    if(userList.isEmpty) {
+      return UserModel();
+    }
+
+    return userList.first;
+  }
+
+  Future<UserModel> login(UserModel user) async {
+    var dbClient = await db;
+    await dbClient?.insert('user', user.toMap());
+
+    return user;
   }
 }
